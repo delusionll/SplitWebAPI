@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using SplitWebAPI.DataBase;
 using SplitWebAPI.Models;
 
@@ -8,28 +7,15 @@ namespace SplitWebAPI.Controllers
     [ApiController]
     public class UserController : Controller
     {
-        //[HttpGet("/GetUserById")]
-        //public async Task GetUserById()
-        //{
-        //    Response.ContentType = "text/html; charset=utf-8";
-        //    string content = @"<form method = 'get'>
-        //                    <label>Id: </label><br />
-        //                    <input name = 'id' /<br /
-        //                    <input type='number' value=''/> </form>";
-        //    await Response.WriteAsync(content);
-        //}
         [HttpGet("/GetUserById")]
-        public async Task<ActionResult<User>> GetUserById(int id)
+        public ActionResult<User> GetUserById(int id)
         {
-            using (SplitContext _db = new())
+            User user = IDbCRUD.GetUserById(id);
+            if (user == null)
             {
-                User user = await _db.Users.FirstOrDefaultAsync(u => u.UserId == id);
-                if (user == null)
-                {
-                    return NotFound();
-                }
-                return new ObjectResult(user);
+                return NotFound();
             }
+            return new ObjectResult(user);
         }
 
         [HttpGet]
@@ -62,7 +48,7 @@ namespace SplitWebAPI.Controllers
         [HttpDelete("/DeleteAllUsers")]
         public async Task DeleteAllUsers()
         {
-            SplitContext.DeleteAllUsers();
+            IDbCRUD.DeleteAllUsers();
             await Response.WriteAsync("All users are deleted.");
         }
 
@@ -80,16 +66,26 @@ namespace SplitWebAPI.Controllers
         [HttpDelete("/DeleteUserById")]
         public string DeleteUserById([FromForm] int userid)
         {
-            if (SplitContext.GetUserById(userid) != null)
+            if (IDbCRUD.GetUserById(userid) != null)
             {
-                int otvet = SplitContext.GetUserById(userid).UserId;
-                SplitContext.DeleteUserById(userid);
-                return $"User with {otvet} id removed from DB";
+                IDbCRUD.DeleteUserById(userid);
+                return $"User with {userid} id removed from DB";
             }
             else
             {
                 return "User not found";
             }
         }
+
+        //[HttpGet("/GetUserById")]
+        //public async Task GetUserById()
+        //{
+        //    Response.ContentType = "text/html; charset=utf-8";
+        //    string content = @"<form method = 'get'>
+        //                    <label>Id: </label><br />
+        //                    <input name = 'id' /<br /
+        //                    <input type='number' value=''/> </form>";
+        //    await Response.WriteAsync(content);
+        //}
     }
 }
