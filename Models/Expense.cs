@@ -14,12 +14,12 @@
         public Expense()
         { }
 
-        public Expense(string expenseTitle, double expenseAmount, int byUserId)
-        {
-            Benefiters = new List<Benefiter>();
-            ExpenseTitle = expenseTitle;
-            ExpenseAmount = expenseAmount;
-            UserId = byUserId;
-        }
+        //public Expense(string expenseTitle, double expenseAmount, int byUserId)
+        //{
+        //    Benefiters = new List<Benefiter>();
+        //    ExpenseTitle = expenseTitle;
+        //    ExpenseAmount = expenseAmount;
+        //    UserId = byUserId;
+        //}
     }
 }
