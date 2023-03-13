@@ -1,6 +1,4 @@
-﻿using SplitWebAPI.DataBase;
-
-namespace SplitWebAPI.Models
+﻿namespace SplitWebAPI.Models
 {
     public class User
     {

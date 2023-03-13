@@ -1,8 +1,3 @@
-using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
-using SplitWebAPI.DataBase;
-using SplitWebAPI.Models;
-
 namespace SplitWebAPI
 {
     public class Program
@@ -41,7 +36,7 @@ namespace SplitWebAPI
             //    name: "expense",
             //    pattern: "{controller=Expense}/{action=NewExpense}"); //Маршрутизация User-deleteUserById
             app.MapControllers();
-           
+
             app.Run();
 
             //builder.Services.AddDbContext<SplitWebAPIContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("SplitWebAPIContext")));
