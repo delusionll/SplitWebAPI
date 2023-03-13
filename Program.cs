@@ -2,11 +2,13 @@ namespace SplitWebAPI
 {
     public class Program
     {
-        private static void Main(string[] args)
+        private static void Main()
         {
-            var builder = WebApplication.CreateBuilder(args);
+            WebApplicationBuilder builder = WebApplication.CreateBuilder();
 
-            builder.Services.AddControllers(); ////днаюбкъел онддепфйс йнмрпнккепнб
+            IServiceCollection services = builder.Services; //Services collection adding
+
+            builder.Services.AddControllers(); ////Controllers support adding
             builder.Services.AddSwaggerGen();
             var app = builder.Build();
             if (app.Environment.IsDevelopment())
